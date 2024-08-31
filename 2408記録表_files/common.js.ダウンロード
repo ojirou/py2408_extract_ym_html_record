@@ -1,0 +1,134 @@
+$(window).on('load',function(){
+    if ($('#over').length) {
+     $("#over").fadeOut('fast');
+    }
+ });
+
+$(function() {
+	if(location.hash!==""){
+	scrollToAnker(location.hash);
+	}
+
+$('input[type="submit"],button').click(function() {
+    if($(this).attr("data-lightbox")!=='imgs'){
+    $("#over").show();
+    }
+});
+
+$("#over").click(function() {
+$("#over").fadeOut('fast');
+});
+  	var topBtn = $('#page-top');   
+	topBtn.hide();
+    $(window).on("scroll", function() {
+        if ($(this).scrollTop() > 100) {
+            topBtn.fadeIn("fast");
+        } else {
+            topBtn.fadeOut("fast");
+        }
+    });
+	topBtn.click(function(){
+	$( 'html,body' ).animate( {scrollTop:0} , 'slow' ) ;
+	});
+
+	  $('a[href^="#"]').click(function(e){
+			var speed = 500;
+			var href= $(this).attr("href");
+			var target = $(href == "#" || href == "" ? 'html' : href);
+            if (target.length) {
+			var position = target.offset().top;
+			$("html, body").animate({scrollTop:position}, speed, "swing");
+            }
+			return false;
+	  });
+
+if ($("#token").length) {
+	  var nw = $.now();
+	  $("#token").val(nw);  
+	  $("#form").validationEngine("attach");
+	}
+    
+
+if ($("form.setting").length) {
+$("form.setting").validate({
+		  rules : {
+				 email: {
+					 required: true,
+					 email: true
+				 }
+		  }
+});
+}
+
+if ($('#my_information_txt').length) {
+    if($('#my_information_txt').val()!==""){
+    $('#my_information_txt').autosize();
+    }
+}
+
+
+$('#yearall + label').click(function () {
+   yearall(); 
+});
+
+});
+
+
+function loaderClose(){
+     $("#over").fadeOut("fast");
+}
+
+function removeEmoji(t) {
+/*
+  var ranges = [
+    '\ud83c[\udf00-\udfff]',
+    '\ud83d[\udc00-\ude4f]',
+    '\ud83d[\ude80-\udeff]',
+    '\ud7c9[\ude00-\udeff]',
+    '[\u2600-\u27BF]'
+  ];
+  var reg = new RegExp(ranges.join('|'), 'g');
+  t.value = (t.value).replace(reg, '');
+  */
+}
+
+ 	function chk(value){
+			ans=confirm(value);
+		switch(true){
+			case ans==false:
+			alert('キャンセルしました。');
+setTimeout(function(){
+$("#over").fadeOut('fast');
+},1000);     
+			return false;
+			break;
+			case ans==true:
+			break;
+		  }
+	}
+    
+  function scrollToAnker(hash) {
+    var target = $(hash);
+    if (target.length) {
+    var position = target.offset().top;
+	$('body,html').stop().animate({scrollTop:(position-120)+"px"}, 500);
+    }
+  } 
+  
+
+function yearall(){
+   if($("#yearall").prop("checked")) {
+     $("ul.years input[type=\"checkbox\"]").prop("checked",false);
+     $("ul.years li:nth-of-type(1) input[type=\"checkbox\"]").prop("checked",true);
+     if($("#oldyear").prop("checked")){
+          $("ul.oldyears input[type=\"checkbox\"]").prop("checked",false);
+     }
+     
+   }else{
+     $("ul.years input[type=\"checkbox\"]").prop("checked",true);
+     if ($("#oldyear").prop("checked")){
+          $("ul.oldyears input[type=\"checkbox\"]").prop("checked",true);
+     }     
+   }
+}
+  
